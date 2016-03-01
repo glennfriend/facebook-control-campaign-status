@@ -1,0 +1,122 @@
+<?php
+
+    try {
+        $user = $fb->get('/me?fields=name');
+    }
+    catch(Facebook\Exceptions\FacebookResponseException $e) {
+        // When Graph returns an error
+        pr('Graph returned an error: ' . $e->getMessage(), true);
+        exit;
+    }
+    catch(Facebook\Exceptions\FacebookSDKException $e) {
+        // When validation fails or other local issues
+        pr('Facebook SDK returned an error: ' . $e->getMessage(), true);
+        exit;
+    }
+
+    $userName = $user->getDecodedBody();
+    pr("<p>Logged in as <b>{$userName['name']}</b></p>");
+
+    try {
+        $adAccountResponse = $fb->get('/me/adaccounts?fields=name');
+    }
+    catch(Facebook\Exceptions\FacebookResponseException $e) {
+        // When Graph returns an error
+        pr( 'Graph returned an error: ' . $e->getMessage(), true);
+        exit;
+    }
+    catch(Facebook\Exceptions\FacebookSDKException $e) {
+        // When validation fails or other local issues
+        pr('Facebook SDK returned an error: ' . $e->getMessage(), true);
+        exit;
+    }
+
+    $myAdAccounts = $adAccountResponse->getDecodedBody();
+
+
+
+
+    // 1. Select Account
+    if (!isset($adAccountId)) {
+        echo 'Please select an ad account: <form id="adaccount-form" action="index.php" method="get"><select id="ad-accounts" name="aId" onchange="getAdAccountName()">';
+        foreach($myAdAccounts['data'] as $myAdAccounts) {
+            echo '<option value="' . $myAdAccounts['id'] . '">' . $myAdAccounts['name'] . '</option>';
+        }
+        echo '</select><input type="submit" name="aName" id="adAccountNameHolder"></form>';
+    }
+    else {
+        echo 'Selected Account #: ' . $adAccountName . ' (' . $adAccountId . ')';
+
+        // 2. Once account is selected, select a campaign
+        if (!isset($campaignName)) {
+
+            try {
+                $getCampaignsResponse = $fb->get(
+                    '/' . $adAccountId . '/campaigns?fields=name,effective_status'
+                );
+            } catch(Facebook\Exceptions\FacebookResponseException $e) {
+                // When Graph returns an error
+                echo 'Graph returned an error: ' . $e->getMessage();
+                exit;
+            } catch(Facebook\Exceptions\FacebookSDKException $e) {
+                // When validation fails or other local issues
+                echo 'Facebook SDK returned an error: ' . $e->getMessage();
+                exit;
+            }
+
+            $campaignsEdge = $getCampaignsResponse->getGraphEdge();
+
+            // Loop through FB results
+            // https://developers.facebook.com/docs/php/Facebook/5.0.0#next
+            $maxPages = 99;
+
+            echo '<br><br>Please select a campaign: <form id="campaign-form" action="index.php" method="get">';
+            if (count($campaignsEdge) > 0) {
+                $pageCount = 0;
+                do {
+                    foreach ($campaignsEdge as $campaignsArray) {
+                        $campaigns = $campaignsArray->asArray();
+                        echo "<input type=\"checkbox\" value=\"id[]=" . $campaigns['id'] . "\" name=\"campaigns_selected[]\">" . $campaigns['name'] . " (" . $campaigns['effective_status'] . ")<br>";
+                    }
+                    $pageCount++;
+                }
+                while ($pageCount < $maxPages && $campaignsEdge = $fb->next($campaignsEdge));
+            }
+            echo '
+                <input type="submit" name="cName" id="campaign-name-holder">
+                <input type="hidden" name="aName" value="'; echo $adAccountName; echo '" />
+                <input type="hidden" name="aId"   value="'; echo $adAccountId;   echo '" />
+                </form>
+            ';
+
+        }
+        else {
+            // change the comma to whatever separator you want
+            echo '<br><br>Selected Campaign(s):<pre>' . implode("\n", $campaignName);
+            $storage = conf('app.storage');
+            file_put_contents($storage, "[data]\n" . implode("\n", $campaignName));
+        }
+    }
+
+?>
+
+<script src="http://code.jquery.com/jquery.min.js"></script>
+<script>
+    function getAdAccountName() {
+       var adAccountNameHolder = $("#ad-accounts option:selected").text();
+       $('#adAccountNameHolder').val(adAccountNameHolder);
+    }
+    function getCampaignName() {
+       var campaignNameHolder = $("#campaigns option:selected").text();
+       $('#campaign-name-holder').val(campaignNameHolder);
+    }
+    function getAdSetName() {
+       var adSetNameHolder = $("#adsets option:selected").text();
+       $('#adset-name-holder').val(adSetNameHolder);
+    }
+    /*
+    function getText(element) {
+       var textHolder = element.options[element.selectedIndex].text;
+       document.getElementById('txt_holder').value = textHolder;
+    }*/
+</script>

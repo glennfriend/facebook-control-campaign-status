@@ -1,0 +1,52 @@
+<?php
+
+    // For a full list of all of the components that make up the SDK for PHP, see
+    // https://developers.facebook.com/docs/php/reference
+
+    // echo 'all good';
+    // $_SESSION['facebook_access_token'] = (string) $accessToken;
+    // $session = $_SESSION['facebook_access_token'];
+    // print_r($session);
+
+
+    try {
+        $user = $fb->get('/me?fields=name');
+    }
+    catch(Facebook\Exceptions\FacebookResponseException $e) {
+        // When Graph returns an error
+        echo 'Graph returned an error: ' . $e->getMessage();
+        exit;
+    } catch(Facebook\Exceptions\FacebookSDKException $e) {
+        // When validation fails or other local issues
+        echo 'Facebook SDK returned an error: ' . $e->getMessage();
+        exit;
+    }
+
+    $userName = $user->getDecodedBody();
+    echo 'Logged in as '. $userName['name'] . '&nbsp&nbsp';
+
+    $storage = conf('app.storage');
+    $campaign_ids = parse_ini_file($storage);
+
+    try {
+        $response = [];
+
+        foreach ($campaign_ids['id'] as $compaignId) {
+            $response[] = $fb->post( '/' . $compaignId . '?status=PAUSED'); // OR ACTIVE
+        }
+        /*$response = [
+            $fb->post( '/' . 6036956690160 . '?status=PAUSED'),
+            $fb->post( '/' . 6035512381160 . '?status=PAUSED'),
+        ];*/
+    }
+    catch(Facebook\Exceptions\FacebookResponseException $e) {
+        // When Graph returns an error
+        echo 'Graph returned an error: ' . $e->getMessage();
+        exit;
+    }
+    catch(Facebook\Exceptions\FacebookSDKException $e) {
+        // When validation fails or other local issues
+        echo 'Facebook SDK returned an error: ' . $e->getMessage();
+        exit;
+    }
+
