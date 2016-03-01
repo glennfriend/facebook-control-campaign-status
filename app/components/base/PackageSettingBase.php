@@ -18,9 +18,7 @@ class PackageSettingBase
         foreach ($folders as $folder) {
             foreach (glob($folder.'/*.php') as $file) {
                 $key = pathinfo(basename($file), PATHINFO_FILENAME);
-                $files = [
-                    $key => $file,
-                ];
+                $files[$key] = $file;
             }
         }
         return $files;
