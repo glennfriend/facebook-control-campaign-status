@@ -42,13 +42,14 @@ class Home extends Tool\BaseController
     /**
      *
      */
-    protected function pause()
+    protected function status()
     {
         $fb = FacebookHelper::getFacebook();
         $fb->setDefaultAccessToken($_SESSION['fb_access_token']);
 
         $this->render('pause', [
             'fb'            => $fb,
+            'type'          => \Bridge\Input::getParam('type'),
             'adAccountId'   => attrib('aId'),
         ]);
     }

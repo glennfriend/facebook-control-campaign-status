@@ -8,7 +8,7 @@ initialize($basePath, 'home');
 
 $app = new Slim\App(getDefaultSlimConfig());
 $app->get('/',              'AppModule\Home:defaultPage');
-$app->get('/pause',         'AppModule\Home:pause');
+$app->get('/status/{type}', 'AppModule\Home:status');
 $app->get('/login',         'AppModule\Auth:login');
 $app->get('/fb-callback',   'AppModule\Auth:facebookCallback');
 

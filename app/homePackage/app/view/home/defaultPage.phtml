@@ -1,5 +1,19 @@
 <?php
 
+    // TODO: 請併入 view functions 之中
+    function url($segment, $args=[])
+    {
+        $url = conf('home.base.url') . $segment;
+        if (!$args) {
+            return $url;
+        }
+        $query = [];
+        foreach ($args as $key => $value) {
+            $query[] = $key .'='. $value;
+        }
+        return $url . '?' . join('&', $query);
+    }
+
     try {
         $user = $fb->get('/me?fields=name');
     }
@@ -15,6 +29,8 @@
     }
 
     $userName = $user->getDecodedBody();
+
+    pr('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
     pr("<p>Logged in as <b>{$userName['name']}</b></p>");
 
     try {
@@ -32,13 +48,11 @@
     }
 
     $myAdAccounts = $adAccountResponse->getDecodedBody();
-
-
-
+    $baseUrl = url('/');
 
     // 1. Select Account
     if (!isset($adAccountId)) {
-        echo 'Please select an ad account: <form id="adaccount-form" action="index.php" method="get"><select id="ad-accounts" name="aId" onchange="getAdAccountName()">';
+        echo 'Please select an ad account: <form id="adaccount-form" action="'. $baseUrl .'" method="get"><select id="ad-accounts" name="aId" onchange="getAdAccountName()">';
         foreach($myAdAccounts['data'] as $myAdAccounts) {
             echo '<option value="' . $myAdAccounts['id'] . '">' . $myAdAccounts['name'] . '</option>';
         }
@@ -70,20 +84,31 @@
             // https://developers.facebook.com/docs/php/Facebook/5.0.0#next
             $maxPages = 99;
 
-            echo '<br><br>Please select a campaign: <form id="campaign-form" action="index.php" method="get">';
+            echo '<br><br>Please select a campaign: <form id="campaign-form" action="'. $baseUrl .'" method="get">';
             if (count($campaignsEdge) > 0) {
                 $pageCount = 0;
                 do {
                     foreach ($campaignsEdge as $campaignsArray) {
                         $campaigns = $campaignsArray->asArray();
-                        echo "<input type=\"checkbox\" value=\"id[]=" . $campaigns['id'] . "\" name=\"campaigns_selected[]\">" . $campaigns['name'] . " (" . $campaigns['effective_status'] . ")<br>";
+                        $enable = ViewHelper::match('id[]='.$campaigns['id'], $adAccountId);
+                        if ($enable) {
+                            $enable = " checked ";
+                        }
+                        echo "<input type=\"checkbox\" value=\"id[]=" . $campaigns['id'] . "\" name=\"campaigns_selected[]\" {$enable}>";
+                        echo ' ';
+                        echo $campaigns['id'];
+                        echo ' ';
+                        echo $campaigns['name'];
+                        echo " (" . $campaigns['effective_status'] . ")";
+                        echo "<br>";
                     }
                     $pageCount++;
                 }
-                while ($pageCount < $maxPages && $campaignsEdge = $fb->next($campaignsEdge));
+                while(false);
+                //while ($pageCount < $maxPages && $campaignsEdge = $fb->next($campaignsEdge));
             }
             echo '
-                <input type="submit" name="cName" id="campaign-name-holder">
+                <input type="submit" name="cName" id="campaign-name-holder" onclick="this.style.visibility=\'hidden\'">
                 <input type="hidden" name="aName" value="'; echo $adAccountName; echo '" />
                 <input type="hidden" name="aId"   value="'; echo $adAccountId;   echo '" />
                 </form>
@@ -91,10 +116,19 @@
 
         }
         else {
-            // change the comma to whatever separator you want
-            echo '<br><br>Selected Campaign(s):<pre>' . implode("\n", $campaignName);
-            $storage = conf('app.storage');
-            file_put_contents($storage, "[data]\n" . implode("\n", $campaignName));
+
+            if (!$adAccountId) {
+                die('aid not found');
+            }
+
+            $storage = ViewHelper::getIni();
+            $storage[$adAccountId] = $campaignName;
+            ViewHelper::setIni($storage);
+
+            $url = url('/', ['aId'=>$adAccountId] );
+            echo '<meta http-equiv="refresh" content="0; url='. $url .'" />';
+            exit;
+
         }
     }
 

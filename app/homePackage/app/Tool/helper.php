@@ -50,9 +50,17 @@ function put($message=null)
     };
 }
 
-function url($url)
+function url($segment, $args=[])
 {
-    return conf('home.base.url') . $url;
+    $url = conf('home.base.url') . $segment;
+    if (!$args) {
+        return $url;
+    }
+    $query = [];
+    foreach ($args as $key => $value) {
+        $query[] = $key .'='. $value;
+    }
+    return $url . '?' . join('&', $query);
 }
 
 function redirect($url, $isFullUrl=false)

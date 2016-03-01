@@ -23,7 +23,8 @@
     }
 
     $userName = $user->getDecodedBody();
-    echo 'Logged in as '. $userName['name'] . '&nbsp&nbsp';
+    echo 'Logged in as '. $userName['name'];
+    echo '<br>';
 
     $storage = conf('app.storage');
     $campaign_ids = parse_ini_file($storage);
@@ -31,9 +32,26 @@
     try {
         $response = [];
 
+        foreach ($campaign_ids as $actId => $compaignIds) {
+            foreach ($compaignIds as $compaignId) {
+                $id = substr($compaignId,5);
+                if ('1' === $type) {
+                    echo '1';
+                    $response[] = $fb->post( '/' . $id . '?status=ACTIVE');
+                }
+                elseif ('0' === $type) {
+                    echo '0';
+                    $response[] = $fb->post( '/' . $id . '?status=PAUSED');
+                }
+            }
+        }
+
+        /*
         foreach ($campaign_ids['id'] as $compaignId) {
             $response[] = $fb->post( '/' . $compaignId . '?status=PAUSED'); // OR ACTIVE
         }
+        */
+
         /*$response = [
             $fb->post( '/' . 6036956690160 . '?status=PAUSED'),
             $fb->post( '/' . 6035512381160 . '?status=PAUSED'),
