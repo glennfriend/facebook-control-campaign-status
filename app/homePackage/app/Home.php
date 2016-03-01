@@ -47,7 +47,7 @@ class Home extends Tool\BaseController
         $fb = FacebookHelper::getFacebook();
         $fb->setDefaultAccessToken($_SESSION['fb_access_token']);
 
-        $this->render('pause', [
+        $this->render('status', [
             'fb'            => $fb,
             'type'          => \Bridge\Input::getParam('type'),
             'adAccountId'   => attrib('aId'),

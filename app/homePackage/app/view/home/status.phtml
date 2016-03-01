@@ -47,15 +47,11 @@
         }
 
         /*
-        foreach ($campaign_ids['id'] as $compaignId) {
-            $response[] = $fb->post( '/' . $compaignId . '?status=PAUSED'); // OR ACTIVE
-        }
+            $response = [
+                $fb->post( '/' . 6036956690160 . '?status=PAUSED'),
+                $fb->post( '/' . 6035512381160 . '?status=PAUSED'),
+            ];
         */
-
-        /*$response = [
-            $fb->post( '/' . 6036956690160 . '?status=PAUSED'),
-            $fb->post( '/' . 6035512381160 . '?status=PAUSED'),
-        ];*/
     }
     catch(Facebook\Exceptions\FacebookResponseException $e) {
         // When Graph returns an error

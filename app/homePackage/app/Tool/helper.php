@@ -50,6 +50,32 @@ function put($message=null)
     };
 }
 
+/**
+ *  輸出
+ */
+function toJson($message)
+{
+    if (is_array($message)) {
+        $message = json_encode($message);
+    }
+    elseif (is_object($message)) {
+        $toArray = (array) $message;
+        $result = [];
+        foreach ($toArray as $key => $value) {
+            $result[$key] = $value;
+        }
+        $message = json_encode($result);
+    }
+    else {
+        $message = json_encode([
+            'result' => $message
+        ]);
+    }
+
+    $data = \Bridge\Input::getProperties();
+    $data['response']->getBody()->write($message);
+}
+
 function url($segment, $args=[])
 {
     $url = conf('home.base.url') . $segment;
@@ -71,4 +97,10 @@ function redirect($url, $isFullUrl=false)
 
     $data = \Bridge\Input::getProperties();
     return $data['response']->withHeader('Location', $url);
+}
+
+function getSlimApp()
+{
+    global $app;
+    return $app;
 }
