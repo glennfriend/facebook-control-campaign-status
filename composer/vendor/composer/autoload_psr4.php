@@ -12,6 +12,7 @@ return array(
     'Symfony\\Component\\Console\\' => array($vendorDir . '/symfony/console'),
     'Slim\\' => array($vendorDir . '/slim/slim/Slim'),
     'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
+    'Piwik\\Ini\\' => array($vendorDir . '/piwik/ini/src'),
     'Interop\\Container\\' => array($vendorDir . '/container-interop/container-interop/src/Interop/Container'),
     'FastRoute\\' => array($vendorDir . '/nikic/fast-route/src'),
     'Facebook\\' => array($vendorDir . '/facebook/php-sdk-v4/src/Facebook'),

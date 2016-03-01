@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e565c243b423df4ab9a935da02c5ff82",
-    "content-hash": "5f12f0359452aa750cc2b1c81133f1c0",
+    "hash": "7026a9b85b726feb0ecf6bf9cc078f16",
+    "content-hash": "3de1385dcf54a295430d9adf500b5de1",
     "packages": [
         {
             "name": "Bridge",
@@ -299,6 +299,39 @@
             "time": "2015-09-11 15:10:35"
         },
         {
+            "name": "piwik/ini",
+            "version": "1.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/piwik/component-ini.git",
+                "reference": "bd2711ba4d5e20e4ca09b6829dc2831576b59dc3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/piwik/component-ini/zipball/bd2711ba4d5e20e4ca09b6829dc2831576b59dc3",
+                "reference": "bd2711ba4d5e20e4ca09b6829dc2831576b59dc3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "athletic/athletic": "0.1.*",
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Piwik\\Ini\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "time": "2016-01-14 21:13:33"
+        },
+        {
             "name": "psr/http-message",
             "version": "1.0",
             "source": {
@@ -457,16 +490,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.8.2",
+            "version": "v2.8.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "d0239fb42f98dd02e7d342f793c5d2cdee0c478d"
+                "reference": "56cc5caf051189720b8de974e4746090aaa10d44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/d0239fb42f98dd02e7d342f793c5d2cdee0c478d",
-                "reference": "d0239fb42f98dd02e7d342f793c5d2cdee0c478d",
+                "url": "https://api.github.com/repos/symfony/console/zipball/56cc5caf051189720b8de974e4746090aaa10d44",
+                "reference": "56cc5caf051189720b8de974e4746090aaa10d44",
                 "shasum": ""
             },
             "require": {
@@ -513,20 +546,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2016-01-14 08:33:16"
+            "time": "2016-02-28 16:20:50"
         },
         {
             "name": "symfony/dependency-injection",
-            "version": "v3.0.2",
+            "version": "v3.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dependency-injection.git",
-                "reference": "7f2ec173cc0366efa0ca1f6b1255803ed7c17028"
+                "reference": "821800ae6753b88dab55a7280811d8734b8112bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/7f2ec173cc0366efa0ca1f6b1255803ed7c17028",
-                "reference": "7f2ec173cc0366efa0ca1f6b1255803ed7c17028",
+                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/821800ae6753b88dab55a7280811d8734b8112bf",
+                "reference": "821800ae6753b88dab55a7280811d8734b8112bf",
                 "shasum": ""
             },
             "require": {
@@ -572,7 +605,7 @@
             ],
             "description": "Symfony DependencyInjection Component",
             "homepage": "https://symfony.com",
-            "time": "2016-02-02 13:48:39"
+            "time": "2016-02-28 16:50:08"
         },
         {
             "name": "symfony/polyfill-mbstring",
