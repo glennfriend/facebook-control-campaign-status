@@ -4,7 +4,7 @@ namespace Bridge\Options;
 /**
  *  不做任何 cache
  */
-class CacheNothing
+class CacheNothing implements \Bridge\Tie\Cache
 {
     protected $cache;
 

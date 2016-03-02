@@ -3,12 +3,6 @@
     // For a full list of all of the components that make up the SDK for PHP, see
     // https://developers.facebook.com/docs/php/reference
 
-    // echo 'all good';
-    // $_SESSION['facebook_access_token'] = (string) $accessToken;
-    // $session = $_SESSION['facebook_access_token'];
-    // print_r($session);
-
-
     try {
         $user = $fb->get('/me?fields=name');
     }
@@ -45,13 +39,6 @@
                 }
             }
         }
-
-        /*
-            $response = [
-                $fb->post( '/' . 6036956690160 . '?status=PAUSED'),
-                $fb->post( '/' . 6035512381160 . '?status=PAUSED'),
-            ];
-        */
     }
     catch(Facebook\Exceptions\FacebookResponseException $e) {
         // When Graph returns an error

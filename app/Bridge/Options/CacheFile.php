@@ -2,7 +2,7 @@
 namespace Bridge\Options;
 use Doctrine;
 
-class CacheFile
+class CacheFile implements \Bridge\Tie\Cache
 {
     protected $cache;
 

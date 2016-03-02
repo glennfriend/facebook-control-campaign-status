@@ -1,10 +1,7 @@
 <?php
 namespace Bridge;
 
-/**
- *  TODO: implements 不是放置在這裡, 是在 Options 裡面
- */
-class Cache implements Tie\Cache
+class Cache
 {
 
     /**
@@ -56,6 +53,7 @@ class Cache implements Tie\Cache
 
     /**
      *  remove cache by prefix
+     *  移除該值開頭的所有快取
      */
     public static function removePrefix($prefix)
     {
