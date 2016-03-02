@@ -126,8 +126,9 @@ function html($data)
         return;
     }
 
+    echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
     if (is_object($data) || is_array($data)) {
-        echo '<pre>';
+        echo '<pre style="background-color:#def;color:#000;text-align:left; font-size: 8px; font-family: Hack,dina">';
         print_r($data);
         echo '</pre>';
     }

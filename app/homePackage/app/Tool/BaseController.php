@@ -73,15 +73,9 @@ class BaseController
             exit;
         }
 
-        $render = function() use ($pathFile, $params)
-        {
-            // TODO: 有一個函式處理這個功能, 請修正
-            // 將陣列裡面的值, 把 key 轉為變數名稱, 內容代入
-            foreach ($params as $___key => $___value) {
-                $$___key = $___value;
-            }
-            unset($___key, $___value);
-
+        $render = function() use ($pathFile, $params) {
+            // EXTR_SKIP - 如果有沖突，覆蓋已有的變量
+            extract($params, EXTR_OVERWRITE);
             include $pathFile;
         };
         $render();
