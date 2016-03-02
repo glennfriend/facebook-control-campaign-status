@@ -18,7 +18,7 @@
 
     $userName = $user->getDecodedBody();
     pr('Logged in as '. $userName['name']);
-    echo '<br>';
+    pr('<br>');
 
     $storage = conf('app.storage');
     $campaign_ids = parse_ini_file($storage);
@@ -30,11 +30,11 @@
             foreach ($compaignIds as $compaignId) {
                 $id = substr($compaignId,5);
                 if ('1' === $type) {
-                    pr('1');
+                    pr('[1]'. $compaignId .'<br>');
                     $response[] = $fb->post( '/' . $id . '?status=ACTIVE');
                 }
                 elseif ('0' === $type) {
-                    pr('0');
+                    pr('[0]'. $compaignId .'<br>');
                     $response[] = $fb->post( '/' . $id . '?status=PAUSED');
                 }
             }

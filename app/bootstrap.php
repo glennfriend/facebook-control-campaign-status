@@ -1,11 +1,11 @@
 <?php
 
-// TODO: move to session bridge
-session_start();
-
-
 function initialize($basePath, $packageName)
 {
+
+    // TODO: move to session bridge
+    session_start();
+
     error_reporting(-1);
     ini_set('html_errors','Off');
     ini_set('display_errors','Off');
@@ -49,6 +49,10 @@ function initialize($basePath, $packageName)
             $setting = new PackageSetting();
             $setting->set('basePath', $basePath);
             $setting->perform();
+            break;
+
+        case 'nothing':
+            // 不做任何事情
             break;
 
         default:

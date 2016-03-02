@@ -51,7 +51,6 @@ class Home extends Tool\BaseController
 
         if (isCli()) {
             $type = getParam(0);
-            var_dump($type);
             if ("1" !== $type && "0" !== $type) {
                 throw new \Exception("type is error");
                 exit;
@@ -62,8 +61,8 @@ class Home extends Tool\BaseController
         }
 
         $this->render('status', [
-            'fb'            => $fb,
-            'type'          => $type
+            'fb'    => $fb,
+            'type'  => $type
         ]);
     }
 
