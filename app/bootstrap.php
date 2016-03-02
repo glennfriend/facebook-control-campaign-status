@@ -117,6 +117,25 @@ function pr($data, $writeLog=false)
     }
 }
 
+/**
+ *  debug only
+ */
+function html($data)
+{
+    if (!isTraining()) {
+        return;
+    }
+
+    if (is_object($data) || is_array($data)) {
+        echo '<pre>';
+        print_r($data);
+        echo '</pre>';
+    }
+    else {
+        echo $data;
+    }
+}
+
 function table(Array $rows, $headers=null)
 {
     if (null === $headers) {

@@ -12,6 +12,4 @@ interface Input
     public function getParam($key);
     public function getParams();
     public function files();
-
-    public function getProperties();
 }

@@ -1,5 +1,6 @@
 <?php
 namespace AppModule\Tool;
+use SlimManager;
 
 /**
  *
@@ -20,7 +21,8 @@ class BaseController
      */
     public function __call($method, $controllerArgs)
     {
-        global $argv;  // by command line
+        global $app;    // Slim app
+        global $argv;   // by command line
 
         if (!method_exists($this, $method)) {
             throw new \Exception("API method '{$method}' is not exist!");
@@ -28,12 +30,12 @@ class BaseController
         }
 
         if (isCli()) {
-            $this->loadHelper($argv);
-        }
-        else {
-            $this->loadHelper($controllerArgs);
+            CliManager::init($argv);
         }
 
+        SlimManager::init($app, $controllerArgs);
+
+        $this->loadHelper($controllerArgs);
         $this->init();
         return $this->$method();
     }
@@ -47,14 +49,7 @@ class BaseController
      */
     protected function loadHelper(Array $args)
     {
-        if (isCli()) {
-            $mode = \Bridge\Input::CLI_MODE;
-        }
-        else {
-            $mode = \Bridge\Input::WEB_MODE;
-        }
-        \Bridge\Input::init($mode, $args);
-
+        \Bridge\Input::init($args);
         LoadHelper::init();
     }
 

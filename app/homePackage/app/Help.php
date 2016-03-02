@@ -1,5 +1,6 @@
 <?php
 namespace AppModule;
+use SlimManager;
 
 /**
  *
@@ -9,7 +10,7 @@ class Help extends Tool\BaseController
 
     protected function info()
     {
-        $routes = getSlimApp()->getContainer()->get('router')->getRoutes();
+        $routes = SlimManager::getRouter()->getRoutes();
         $urlPrefix = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'];
         $show = [];
         foreach ($routes as $index => $route) {

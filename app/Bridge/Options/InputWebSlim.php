@@ -82,20 +82,4 @@ class InputWebSlim implements \Bridge\Tie\Input
         return $this->request->isXhr();
     }
 
-    /* --------------------------------------------------------------------------------
-
-    -------------------------------------------------------------------------------- */
-
-    /**
-     *  slim information
-     */
-    public function getProperties()
-    {
-        return [
-            'request'   => $this->request,
-            'response'  => $this->response,
-            'args'      => $this->args,
-        ];
-    }
-
 }

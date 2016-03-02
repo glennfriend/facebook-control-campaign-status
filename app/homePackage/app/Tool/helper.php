@@ -1,5 +1,6 @@
 <?php
 namespace AppModule;
+use SlimManager;
 
 // --------------------------------------------------------------------------------
 // wrap controller help functions
@@ -72,8 +73,7 @@ function toJson($message)
         ]);
     }
 
-    $data = \Bridge\Input::getProperties();
-    $data['response']->getBody()->write($message);
+    SlimManager::getResponse()->getBody()->write($message);
 }
 
 function url($segment, $args=[])
@@ -95,12 +95,7 @@ function redirect($url, $isFullUrl=false)
         $url = url($url);
     }
 
-    $data = \Bridge\Input::getProperties();
-    return $data['response']->withHeader('Location', $url);
-}
-
-function getSlimApp()
-{
-    global $app;
-    return $app;
+    //$data = \Bridge\Input::getProperties();
+    //return $data['response']->withHeader('Location', $url);
+    return SlimManager::getResponse()->withHeader('Location', $url);
 }

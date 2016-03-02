@@ -3,9 +3,6 @@ namespace Bridge;
 
 class Input
 {
-    const CLI_MODE = 'cli';
-    const WEB_MODE = 'web';
-
     /**
      *  request
      */
@@ -14,16 +11,8 @@ class Input
     /**
      *  request init
      */
-    public static function init($mode, $arguments=null)
+    public static function init($arguments=null)
     {
-
-        if (self::CLI_MODE === $mode) {
-            self::$request = new Options\InputCommandLine();
-            self::$request->init($arguments);
-            return true;
-        }
-
-        // $mode is WEB_MODE
         $isSlimFramework = true;
         if ($isSlimFramework) {
             self::$request = new Options\InputWebSlim();
@@ -113,19 +102,6 @@ class Input
     public static function isAjax()
     {
         return self::$request->isAjax();
-    }
-
-    /* --------------------------------------------------------------------------------
-        extends
-    -------------------------------------------------------------------------------- */
-
-    /**
-     *  包裝的程式本身有一些資訊
-     *  在這裡統一輸出
-     */
-    public static function getProperties()
-    {
-        return self::$request->getProperties();
     }
 
 }
