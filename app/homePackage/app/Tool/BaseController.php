@@ -38,7 +38,14 @@ class BaseController
         SlimManager::init($app, $controllerArgs);
 
         $this->loadHelper($controllerArgs);
-        $this->init();
+
+        // 如果有回傳值, 則不往下執行
+        $result = $this->init();
+        if (null !== $result) {
+            return $result;
+        }
+
+        //
         return $this->$method();
     }
 

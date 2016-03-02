@@ -32,7 +32,7 @@ class ViewNormal
         $className = strtolower($tmp[count($tmp)-1]);
 
         if (!file_exists($path)) {
-            throw new \Exception('View file "'. htmlspecialchars($pathFile) .'" not found!');
+            throw new \Exception('View file "'. htmlspecialchars($path) .'" not found!');
             exit;
         }
 

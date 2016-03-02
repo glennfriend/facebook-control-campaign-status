@@ -21,6 +21,11 @@ use FacebookHelper;
 class Auth extends Tool\BaseController
 {
 
+    protected function init()
+    {
+        $_SESSION['fb_access_token'] = '';
+    }
+
     /**
      *
      */
@@ -34,11 +39,9 @@ class Auth extends Tool\BaseController
 
         $_SESSION['fb_access_token'] = '';
 
-        // TODO: please add to view
-        $helper = $fb->getRedirectLoginHelper();
-        $permissions = ['ads_management']; // Optional Permissions
-        $loginUrl = $helper->getLoginUrl('http://training3.simplybridal.com/facebook-control-compain-status/fb-callback', $permissions);
-        echo '<a href="' . htmlspecialchars($loginUrl) . '">Log in with Facebook!</a>';
+        $this->render('login', [
+            'fb' => $fb,
+        ]);
     }
 
     /**
@@ -46,7 +49,7 @@ class Auth extends Tool\BaseController
      */
     protected function facebookCallback()
     {
-        $fb     = FacebookHelper::getFacebook();
+        $fb = FacebookHelper::getFacebook();
         $helper = $fb->getRedirectLoginHelper();
 
         try {
@@ -61,30 +64,15 @@ class Auth extends Tool\BaseController
             exit;
         }
 
-        if (! isset($accessToken)) {
-           if ($helper->getError()) {
-              header('HTTP/1.0 401 Unauthorized');
-              echo "Error: " . $helper->getError() . "\n";
-              echo "Error Code: " . $helper->getErrorCode() . "\n";
-              echo "Error Reason: " . $helper->getErrorReason() . "\n";
-              echo "Error Description: " . $helper->getErrorDescription() . "\n";
-           } else {
-              header('HTTP/1.0 400 Bad Request');
-              echo 'Bad request';
-           }
-           exit;
+        if (isset($accessToken)) {
+            $_SESSION['fb_access_token'] = (string) $accessToken;
         }
 
-        //$_SESSION['facebook_access_token'] = (string) $accessToken;
-        $_SESSION['fb_access_token'] = (string) $accessToken;
-
-        // OAuth 2.0 client handler
-        $oAuth2Client = $fb->getOAuth2Client();
-
-        // Exchanges a short-lived access token for a long-lived one
-        $longLivedAccessToken = $oAuth2Client->getLongLivedAccessToken($accessToken);
-
-        echo 'is ok';
+        $this->render('facebookCallback', [
+            'fb'          => $fb,
+            'helper'      => $helper,
+            'accessToken' => $accessToken,
+        ]);
     }
 
 }
