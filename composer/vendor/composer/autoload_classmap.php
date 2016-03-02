@@ -6,9 +6,11 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'CliManager' => $baseDir . '/../app/components/manager/CliManager.php',
     'CommandLine' => $vendorDir . '/pwfisher/command-line-php/CommandLine.php',
     'ConfigManager' => $baseDir . '/../app/components/manager/ConfigManager.php',
     'ConsoleHelper' => $baseDir . '/../app/components/helper/ConsoleHelper.php',
     'ErrorSupportHelper' => $baseDir . '/../app/components/helper/ErrorSupportHelper.php',
     'PackageSettingBase' => $baseDir . '/../app/components/base/PackageSettingBase.php',
+    'SlimManager' => $baseDir . '/../app/components/manager/SlimManager.php',
 );
