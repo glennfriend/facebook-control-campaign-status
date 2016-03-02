@@ -49,6 +49,14 @@ class PackageSetting extends PackageSettingBase
         // view
         $di->register('view', 'Bridge\View');
 
+        // url
+        $di->register('url', 'UrlManager');
+        $di->get('url')->init([
+            'basePath'  =>  conf('app.path'),
+            'baseUrl'   =>  conf('home.base.url'),
+            'host'      =>  $_SERVER['HTTP_HOST'],
+        ]);
+
         /*
         // cache
         $di->register('cache', 'Bridge\Cache')

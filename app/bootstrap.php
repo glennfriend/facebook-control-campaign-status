@@ -118,7 +118,8 @@ function pr($data, $writeLog=false)
 }
 
 /**
- *  debug only
+ *  show message to web html
+ *      - debug only
  */
 function html($data)
 {

@@ -78,15 +78,7 @@ function toJson($message)
 
 function url($segment, $args=[])
 {
-    $url = conf('home.base.url') . $segment;
-    if (!$args) {
-        return $url;
-    }
-    $query = [];
-    foreach ($args as $key => $value) {
-        $query[] = $key .'='. $value;
-    }
-    return $url . '?' . join('&', $query);
+    return di('url')->CreateUrl($segment, $args);
 }
 
 function redirect($url, $isFullUrl=false)

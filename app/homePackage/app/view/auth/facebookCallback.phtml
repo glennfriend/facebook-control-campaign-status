@@ -23,6 +23,7 @@
         // Exchanges a short-lived access token for a long-lived one
         $longLivedAccessToken = $oAuth2Client->getLongLivedAccessToken($accessToken);
 
-        echo 'is ok';
+        $baseUrl = AppModule\url('/');
+        echo '<meta http-equiv="refresh" content="0; url='. $baseUrl .'" />';
 
     }

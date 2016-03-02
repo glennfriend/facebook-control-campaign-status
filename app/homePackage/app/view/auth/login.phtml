@@ -3,6 +3,6 @@
     $helper = $fb->getRedirectLoginHelper();
     $permissions = ['ads_management']; // Optional Permissions
 
-    // TODO: url gen
-    $loginUrl = $helper->getLoginUrl('http://training3.simplybridal.com/facebook-control-compain-status/fb-callback', $permissions);
+    $uri = di('url')->createUri('/fb-callback');
+    $loginUrl = $helper->getLoginUrl($uri, $permissions);
     echo '<a href="' . htmlspecialchars($loginUrl) . '">Log in with Facebook!</a>';

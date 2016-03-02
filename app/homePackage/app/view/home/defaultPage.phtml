@@ -1,19 +1,5 @@
 <?php
 
-    // TODO: 請併入 view functions 之中
-    function url($segment, $args=[])
-    {
-        $url = conf('home.base.url') . $segment;
-        if (!$args) {
-            return $url;
-        }
-        $query = [];
-        foreach ($args as $key => $value) {
-            $query[] = $key .'='. $value;
-        }
-        return $url . '?' . join('&', $query);
-    }
-
     try {
         $user = $fb->get('/me?fields=name');
     }
@@ -48,7 +34,7 @@
     }
 
     $myAdAccounts = $adAccountResponse->getDecodedBody();
-    $baseUrl = url('/');
+    $baseUrl = AppModule\url('/');
 
     // 1. Select Account
     if (!isset($adAccountId)) {
