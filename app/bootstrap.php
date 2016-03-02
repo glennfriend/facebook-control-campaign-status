@@ -1,6 +1,6 @@
 <?php
 
-
+// TODO: move to session bridge
 session_start();
 
 
@@ -32,6 +32,11 @@ function initialize($basePath, $packageName)
         error_reporting(E_ALL);
         ini_set('html_errors','On');
         ini_set('display_errors','On');
+    }
+
+    if (isCli()) {
+        ini_set('html_errors','Off');
+        ini_set('display_errors','Off');
     }
 
     date_default_timezone_set(conf('app.timezone'));
