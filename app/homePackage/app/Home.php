@@ -16,18 +16,15 @@ use FacebookHelper;
 class Home extends Tool\BaseController
 {
 
-    protected function init()
-    {
-        if (!isset($_SESSION['fb_access_token']) || !$_SESSION['fb_access_token']) {
-            return redirect('/login');
-        }
-    }
-
     /**
      *
      */
     protected function defaultPage()
     {
+        if (!isset($_SESSION['fb_access_token']) || !$_SESSION['fb_access_token']) {
+            return redirect('/login');
+        }
+
         $fb = FacebookHelper::getFacebook();
         $fb->setDefaultAccessToken($_SESSION['fb_access_token']);
 
@@ -44,13 +41,29 @@ class Home extends Tool\BaseController
      */
     protected function status()
     {
+        $token = \ViewHelper::getToken();
+        if (!$token) {
+            throw new \Exception("Token file not found.");
+        }
+
         $fb = FacebookHelper::getFacebook();
-        $fb->setDefaultAccessToken($_SESSION['fb_access_token']);
+        $fb->setDefaultAccessToken($token);
+
+        if (isCli()) {
+            $type = getParam(0);
+            var_dump($type);
+            if ("1" !== $type && "0" !== $type) {
+                throw new \Exception("type is error");
+                exit;
+            }
+        }
+        else {
+            $type = getParam('type');
+        }
 
         $this->render('status', [
             'fb'            => $fb,
-            'type'          => \Bridge\Input::getParam('type'),
-            'adAccountId'   => attrib('aId'),
+            'type'          => $type
         ]);
     }
 

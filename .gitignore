@@ -10,6 +10,7 @@ var/cache/*
 var/session/*
 var/*.log
 var/*.ini
+var/*.txt
 app/config/*.php
 home/media/*
 

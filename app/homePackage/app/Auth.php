@@ -66,6 +66,7 @@ class Auth extends Tool\BaseController
 
         if (isset($accessToken)) {
             $_SESSION['fb_access_token'] = (string) $accessToken;
+            \ViewHelper::setToken($_SESSION['fb_access_token']);
         }
 
         $this->render('facebookCallback', [

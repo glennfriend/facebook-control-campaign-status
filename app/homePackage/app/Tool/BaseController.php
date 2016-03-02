@@ -32,10 +32,12 @@ class BaseController
         di('view')->init();
 
         if (isCli()) {
-            CliManager::init($argv);
+            \CliManager::init($argv);
         }
-
-        SlimManager::init($app, $controllerArgs);
+        else {
+            SlimManager::init($app, $controllerArgs);
+            \Bridge\Input::init($controllerArgs);
+        }
 
         $this->loadHelper($controllerArgs);
 
@@ -58,7 +60,6 @@ class BaseController
      */
     protected function loadHelper(Array $args)
     {
-        \Bridge\Input::init($args);
         LoadHelper::init();
     }
 

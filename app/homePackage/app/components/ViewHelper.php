@@ -42,4 +42,19 @@ class ViewHelper
         return false;
     }
 
+    public static function setToken($content)
+    {
+        $tokenFile = conf('app.path') . '/var/token.txt';
+        file_put_contents($tokenFile, $content);
+    }
+
+    public static function getToken()
+    {
+        $tokenFile = conf('app.path') . '/var/token.txt';
+        if (!file_exists($tokenFile)) {
+            return null;
+        }
+        return file_get_contents($tokenFile);
+    }
+
 }

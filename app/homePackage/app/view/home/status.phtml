@@ -17,7 +17,7 @@
     }
 
     $userName = $user->getDecodedBody();
-    echo 'Logged in as '. $userName['name'];
+    pr('Logged in as '. $userName['name']);
     echo '<br>';
 
     $storage = conf('app.storage');
@@ -30,11 +30,11 @@
             foreach ($compaignIds as $compaignId) {
                 $id = substr($compaignId,5);
                 if ('1' === $type) {
-                    echo '1';
+                    pr('1');
                     $response[] = $fb->post( '/' . $id . '?status=ACTIVE');
                 }
                 elseif ('0' === $type) {
-                    echo '0';
+                    pr('0');
                     $response[] = $fb->post( '/' . $id . '?status=PAUSED');
                 }
             }

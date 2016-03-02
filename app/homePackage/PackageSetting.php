@@ -54,7 +54,7 @@ class PackageSetting extends PackageSettingBase
         $di->get('url')->init([
             'basePath'  =>  conf('app.path'),
             'baseUrl'   =>  conf('home.base.url'),
-            'host'      =>  $_SERVER['HTTP_HOST'],
+            'host'      =>  isCli() ? '' :  $_SERVER['HTTP_HOST'],
         ]);
 
         /*

@@ -7,13 +7,24 @@ use SlimManager;
 // --------------------------------------------------------------------------------
 
 /**
- *  取得 route 處理之後獲得的參數
- *
- *  @see https://github.com/pwfisher/CommandLine.php
+ *  取得 web 參數
  */
 function attrib($key, $defaultValue=null)
 {
     return \Bridge\Input::get($key, $defaultValue);
+}
+
+/**
+ *  取得 route / command line 處理之後獲得的參數
+ */
+function getParam($key, $defaultValue=null)
+{
+    if (isCli()) {
+        return \CliManager::get($key);
+    }
+    else {
+        return \Bridge\Input::getParam($key, $defaultValue);
+    }
 }
 
 /**
@@ -73,7 +84,9 @@ function toJson($message)
         ]);
     }
 
-    SlimManager::getResponse()->getBody()->write($message);
+    SlimManager::getResponse()
+        ->getBody()
+        ->write($message);
 }
 
 function url($segment, $args=[])
@@ -83,11 +96,13 @@ function url($segment, $args=[])
 
 function redirect($url, $isFullUrl=false)
 {
+    // if (isCli()) {
+    //     return;
+    // }
+
     if (!$isFullUrl) {
         $url = url($url);
     }
 
-    //$data = \Bridge\Input::getProperties();
-    //return $data['response']->withHeader('Location', $url);
     return SlimManager::getResponse()->withHeader('Location', $url);
 }

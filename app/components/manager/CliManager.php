@@ -1,17 +1,21 @@
 <?php
-use CommandLine;
 
 class CliManager
 {
-    protected $args = [];
+    /**
+     *
+     */
+    protected static $args = [];
 
     /**
      *  init
+     *
+     *  @see https://github.com/pwfisher/CommandLine.php
      */
-    public function init($arguments)
+    public static function init($arguments)
     {
         if ($arguments) {
-            $this->args = CommandLine::parseArgs($args);
+            self::$args = CommandLine::parseArgs($arguments);
         }
     }
 
@@ -19,17 +23,30 @@ class CliManager
 
     -------------------------------------------------------------------------------- */
 
-    public function get($key, $defaultValue=null)
+    /**
+     *  php command.php hello
+     *      -> get(0)
+     *      // "hello"
+     *
+     *  php command.php --hi="hello world"
+     *      -> get('hi')
+     *      // "hello world"
+     *
+     */
+    public static function get($key, $defaultValue=null)
     {
-        if (isset($this->args[$key])) {
-            return $this->args[$key];
+        if (isset(self::$args[$key])) {
+            return self::$args[$key];
         }
         return $defaultValue;
     }
 
-    public function has($key)
+    /**
+     *
+     */
+    public static function has($key)
     {
-        if (isset($this->args[$key])) {
+        if (isset(self::$args[$key])) {
             return true;
         }
         return false;
