@@ -26,19 +26,26 @@
     try {
         $response = [];
 
+        $message = '';
         foreach ($campaign_ids as $actId => $compaignIds) {
             foreach ($compaignIds as $compaignId) {
                 $id = substr($compaignId,5);
                 if ('1' === $type) {
-                    pr('[1]'. $compaignId .'<br>');
+                    $message .= '[1] '. $compaignId ."\n";
                     $response[] = $fb->post( '/' . $id . '?status=ACTIVE');
                 }
                 elseif ('0' === $type) {
-                    pr('[0]'. $compaignId .'<br>');
+                    $message .= '[0] '. $compaignId ."\n";
                     $response[] = $fb->post( '/' . $id . '?status=PAUSED');
                 }
             }
         }
+
+        if ($message) {
+            pr('<pre>'.$message.'</pre>');
+            \MailHelper::send($message);
+        }
+
     }
     catch(Facebook\Exceptions\FacebookResponseException $e) {
         // When Graph returns an error
