@@ -108,7 +108,7 @@
             $storage[$adAccountId] = $campaignName;
             ViewHelper::setIni($storage);
 
-            $url = url('/', ['aId'=>$adAccountId] );
+            $url = \AppModule\url('/', ['aId'=>$adAccountId] );
             echo '<meta http-equiv="refresh" content="0; url='. $url .'" />';
             exit;
 
