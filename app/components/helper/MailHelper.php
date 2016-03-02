@@ -17,8 +17,8 @@ class MailHelper
 
     private static function _send($subject, $body)
     {
-        $mail =
-            new Message
+        $mail = new Message;
+        $mail
             ->setFrom('System <system@localhost.com>')
             ->setSubject($subject)
             ->setBody($body);
