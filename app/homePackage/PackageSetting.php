@@ -46,6 +46,9 @@ class PackageSetting extends PackageSettingBase
         $di->register('log', 'Bridge\Log')
             ->addMethodCall('init', ['%app.path%/var']);
 
+        // view
+        $di->register('view', 'Bridge\View');
+
         /*
         // cache
         $di->register('cache', 'Bridge\Cache')
