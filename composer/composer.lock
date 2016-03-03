@@ -13,7 +13,7 @@
             "dist": {
                 "type": "path",
                 "url": "../app/Bridge/",
-                "reference": "9659b936a2c21e667192e4350dc58e0e",
+                "reference": "2f382319bea00fe06c4efc37d767e3ffd6de9823",
                 "shasum": null
             },
             "type": "library",
@@ -29,7 +29,7 @@
             "dist": {
                 "type": "path",
                 "url": "../app/Ydin/",
-                "reference": "0724d5ec38c2c182c83d8760c80d0ea7",
+                "reference": "8d1edbb4c33e94fe094adf8649bb31916249aeb9",
                 "shasum": null
             },
             "require": {

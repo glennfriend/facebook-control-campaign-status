@@ -58,5 +58,6 @@ return array(
     'Nette\\Utils\\UnknownImageFileException' => $vendorDir . '/nette/utils/src/Utils/exceptions.php',
     'Nette\\Utils\\Validators' => $vendorDir . '/nette/utils/src/Utils/Validators.php',
     'PackageSettingBase' => $baseDir . '/../app/components/base/PackageSettingBase.php',
+    'SlimConfigHelper' => $baseDir . '/../app/components/helper/SlimConfigHelper.php',
     'SlimManager' => $baseDir . '/../app/components/manager/SlimManager.php',
 );
