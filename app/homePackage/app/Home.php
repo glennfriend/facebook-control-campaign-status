@@ -13,7 +13,7 @@ use FacebookHelper;
 /**
  *
  */
-class Home extends Tool\BaseController
+class Home extends BaseController
 {
 
     /**

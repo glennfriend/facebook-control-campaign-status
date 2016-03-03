@@ -5,7 +5,7 @@ use SlimManager;
 /**
  *
  */
-class Help extends Tool\BaseController
+class Help extends BaseController
 {
 
     protected function info()

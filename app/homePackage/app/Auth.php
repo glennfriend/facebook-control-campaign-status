@@ -18,7 +18,7 @@ use FacebookHelper;
 /**
  *
  */
-class Auth extends Tool\BaseController
+class Auth extends BaseController
 {
 
     protected function init()

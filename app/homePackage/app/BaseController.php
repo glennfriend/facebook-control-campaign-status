@@ -1,5 +1,5 @@
 <?php
-namespace AppModule\Tool;
+namespace AppModule;
 use SlimManager;
 
 /**
@@ -60,7 +60,7 @@ class BaseController
      */
     protected function loadControllerHelper(Array $args)
     {
-        LoadControllerHelper::init();
+        include_once __DIR__ . "/baseCore/controllerHelper.php";
     }
 
     /**
@@ -71,19 +71,19 @@ class BaseController
         // default layout
         $layout = di('view')->getLayout();
         if (!$layout) {
-            $layout = dirname(__DIR__) . "/view/_layout/index.phtml";
+            $layout = __DIR__ . "/view/_layout/index.phtml";
             di('view')->setLayout($layout);
         }
 
         // append view helper
         di('view')->setRenderBeforeEvent(function() {
-            include (__DIR__ . '/viewHelper.php');
+            include (__DIR__ . '/baseCore/viewHelper.php');
         });
 
         // render template
         $tmp = explode('\\', get_class($this));
         $className = strtolower($tmp[count($tmp)-1]);
-        $template = dirname(__DIR__) . "/view/{$className}/{$name}.phtml";
+        $template = __DIR__ . "/view/{$className}/{$name}.phtml";
         di('view')->render($template, $params);
     }
 
