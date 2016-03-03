@@ -67,7 +67,7 @@ class UrlManager
      */
     public static function createUri($segment, $args=[])
     {
-        return 'http://' . self::$data['host'] . $this->createUrl($segment, $args);
+        return 'http://' . self::$data['host'] . self::createUrl($segment, $args);
     }
 
     /* ================================================================================
