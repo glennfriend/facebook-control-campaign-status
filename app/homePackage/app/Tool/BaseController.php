@@ -39,7 +39,7 @@ class BaseController
             \Bridge\Input::init($controllerArgs);
         }
 
-        $this->loadHelper($controllerArgs);
+        $this->loadControllerHelper($controllerArgs);
 
         // 如果有回傳值, 則不往下執行
         $result = $this->init();
@@ -58,9 +58,9 @@ class BaseController
      *  僅給 controller 使用
      *  並不給予 view 使用
      */
-    protected function loadHelper(Array $args)
+    protected function loadControllerHelper(Array $args)
     {
-        LoadHelper::init();
+        LoadControllerHelper::init();
     }
 
     /**

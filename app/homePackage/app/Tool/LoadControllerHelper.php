@@ -1,7 +1,7 @@
 <?php
 namespace AppModule\Tool;
 
-class LoadHelper
+class LoadControllerHelper
 {
 
     /**
@@ -9,7 +9,7 @@ class LoadHelper
      */
     public static function init()
     {
-        include_once "helper.php";
+        include_once "controllerHelper.php";
     }
 
 }
