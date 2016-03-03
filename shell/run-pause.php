@@ -1,7 +1,7 @@
 <?php
 
     // --------------------------------------------------------------------------------
-    //  php -q /var/www/facebook-control-compain-status/shell/run.php
+    //  php -q /var/www/facebook-control-campaign-status/shell/run.php
     // --------------------------------------------------------------------------------
 
     $basePath = dirname(__DIR__);

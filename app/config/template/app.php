@@ -1,6 +1,6 @@
 <?php
 
-$path = '/var/www/facebook-control-compain-status';
+$path = '/var/www/facebook-control-campaign-status';
 
 /**
  *  app config

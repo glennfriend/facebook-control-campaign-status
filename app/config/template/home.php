@@ -12,7 +12,7 @@ return [
      *  base url
      */
     'base' => [
-        'url' => '/facebook-control-compain-status',
+        'url' => '/facebook-control-campaign-status',
     ],
 
 ];
