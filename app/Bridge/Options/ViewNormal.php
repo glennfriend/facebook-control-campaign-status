@@ -3,12 +3,26 @@ namespace Bridge\Options;
 
 class ViewNormal
 {
+    protected $data;
 
     /**
      *  init
      */
     public function init()
     {
+    }
+
+    public function set($key, $value)
+    {
+        $this->data[$key] = $value;
+    }
+
+    public function get($key, $defaultValue=null)
+    {
+        if (isset($this->data[$key])) {
+            return $this->data[$key];
+        }
+        return $defaultValue;
     }
 
     /* --------------------------------------------------------------------------------
@@ -36,12 +50,31 @@ class ViewNormal
             exit;
         }
 
-        $render = function() use ($path, $params) {
+        // load template
+        $___path    = $path;
+        $___params  = $params;
+        $render = function() use ($___path, $___params) {
             // EXTR_SKIP - 如果有沖突，覆蓋已有的變量
-            extract($params, EXTR_OVERWRITE);
-            include $path;
+            extract($___params, EXTR_OVERWRITE);
+            include $___path;
         };
-        $render();
+        ob_start();
+            $render();
+            $content = ob_get_contents();
+        ob_end_clean();
+
+        // load layout
+        $layoutTemplate = '';
+        $layout = $this->get('layout');
+        if ($layout && file_exists($layout)) {
+            ob_start();
+                include $layout;
+                $layoutTemplate = ob_get_contents();
+            ob_end_clean();
+        }
+
+        $output = str_replace("{{content}}", $content, $layoutTemplate);
+        echo $output;
     }
 
 }

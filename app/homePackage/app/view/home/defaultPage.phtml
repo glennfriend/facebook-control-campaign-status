@@ -16,7 +16,6 @@
 
     $userName = $user->getDecodedBody();
 
-    pr('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
     pr("<p>Logged in as <b>{$userName['name']}</b></p>");
 
     try {
@@ -117,7 +116,6 @@
 
 ?>
 
-<script src="http://code.jquery.com/jquery.min.js"></script>
 <script>
     function getAdAccountName() {
        var adAccountNameHolder = $("#ad-accounts option:selected").text();

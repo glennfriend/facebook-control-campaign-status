@@ -68,11 +68,18 @@ class BaseController
      */
     protected function render($name, $params)
     {
+        // default layout
+        $layout = di('view')->getLayout();
+        if (!$layout) {
+            $layout = dirname(__DIR__) . "/view/_layout/index.phtml";
+            di('view')->setLayout($layout);
+        }
+
+        // render template
         $tmp = explode('\\', get_class($this));
         $className = strtolower($tmp[count($tmp)-1]);
-
-        $file = dirname(__DIR__) . "/view/{$className}/{$name}.phtml";
-        di('view')->render($file, $params);
+        $template = dirname(__DIR__) . "/view/{$className}/{$name}.phtml";
+        di('view')->render($template, $params);
     }
 
 }

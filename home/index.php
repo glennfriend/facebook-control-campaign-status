@@ -3,9 +3,6 @@ $basePath = dirname(__DIR__);
 require_once $basePath . '/app/bootstrap.php';
 initialize($basePath, 'home');
 
-//$controller = new AppModule\Home();
-//$controller->defaultPage();
-
 $container = SlimConfigHelper::getDefaultJsonContainer();
 $app = new Slim\App($container);
 $app->get('/',              'AppModule\Home:defaultPage');
