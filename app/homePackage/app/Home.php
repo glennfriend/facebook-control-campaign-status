@@ -28,7 +28,7 @@ class Home extends Tool\BaseController
         $fb = FacebookHelper::getFacebook();
         $fb->setDefaultAccessToken($_SESSION['fb_access_token']);
 
-        $this->render('defaultPage', [
+        $this->render(__FUNCTION__, [
             'fb'            => $fb,
             'adAccountId'   => attrib('aId'),
             'adAccountName' => attrib('aName'),
@@ -60,7 +60,7 @@ class Home extends Tool\BaseController
             $type = getParam('type');
         }
 
-        $this->render('status', [
+        $this->render(__FUNCTION__, [
             'fb'    => $fb,
             'type'  => $type
         ]);

@@ -7,7 +7,6 @@
         $user = $fb->get('/me?fields=name');
     }
     catch(Facebook\Exceptions\FacebookResponseException $e) {
-        // When Graph returns an error
         echo 'Graph returned an error: ' . $e->getMessage();
         exit;
     } catch(Facebook\Exceptions\FacebookSDKException $e) {
@@ -48,7 +47,6 @@
 
     }
     catch(Facebook\Exceptions\FacebookResponseException $e) {
-        // When Graph returns an error
         echo 'Graph returned an error: ' . $e->getMessage();
         exit;
     }

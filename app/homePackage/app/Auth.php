@@ -36,10 +36,9 @@ class Auth extends Tool\BaseController
         if (isset($_SESSION['fb_access_token']) && $_SESSION['fb_access_token']) {
             return redirect('/');
         }
-
         $_SESSION['fb_access_token'] = '';
 
-        $this->render('login', [
+        $this->render(__FUNCTION__, [
             'fb' => $fb,
         ]);
     }
@@ -55,7 +54,6 @@ class Auth extends Tool\BaseController
         try {
             $accessToken = $helper->getAccessToken();
         } catch(Facebook\Exceptions\FacebookResponseException $e) {
-            // When Graph returns an error
             echo 'Graph returned an error: ' . $e->getMessage();
             exit;
         } catch(Facebook\Exceptions\FacebookSDKException $e) {
@@ -69,7 +67,7 @@ class Auth extends Tool\BaseController
             \ViewHelper::setToken($_SESSION['fb_access_token']);
         }
 
-        $this->render('facebookCallback', [
+        $this->render(__FUNCTION__, [
             'fb'          => $fb,
             'helper'      => $helper,
             'accessToken' => $accessToken,
