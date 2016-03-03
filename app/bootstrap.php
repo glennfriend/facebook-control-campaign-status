@@ -10,16 +10,10 @@ function initialize($basePath, $packageName)
     ini_set('html_errors','Off');
     ini_set('display_errors','Off');
 
-    if ( phpversion() < '5.5' ) {
-        pr("PHP Version need >= 5.5");
-        exit;
-    }
-
-    $autoload = $basePath . '/composer/vendor/autoload.php';
-    if (!file_exists($autoload)) {
-        die('Lose your composer!');
-    }
-    require_once ($autoload);
+    /**
+     *  load composer
+     */
+    loadComposer($basePath);
 
     // init config
     ConfigManager::init( $basePath . '/app/config');
@@ -41,6 +35,15 @@ function initialize($basePath, $packageName)
 
     date_default_timezone_set(conf('app.timezone'));
 
+    //
+    // ---- start ----
+    //
+
+    if ( phpversion() < '5.5' ) {
+        pr("PHP Version need >= 5.5");
+        exit;
+    }
+
     // load Package
     switch($packageName)
     {
@@ -59,32 +62,15 @@ function initialize($basePath, $packageName)
             throw new Exception('Warning! setting file error!'); 
             exit;
     }
-
 }
 
-function getDefaultSlimConfig()
+function loadComposer($basePath)
 {
-    $container = new \Slim\Container();
-
-    if (isTraining()) {
-        $container['settings']['displayErrorDetails'] = true;
+    $autoload = $basePath . '/composer/vendor/autoload.php';
+    if (!file_exists($autoload)) {
+        die('Lose your composer!');
     }
-
-    // Override the default Not Found Handler
-    $container['notFoundHandler'] = function ($c) {
-        return function ($request, $response) use ($c) {
-
-            $error = ErrorSupportHelper::getJson('p404');
-            return $c['response']
-                ->withStatus(404)
-                ->withHeader('Content-Type', 'application/json')
-                ->write($error)
-            ;
-
-        };
-    };
-
-    return $container;
+    require_once ($autoload);
 }
 
 function isTraining()

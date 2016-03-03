@@ -12,14 +12,14 @@ class UrlManager
     /**
      *  儲存基本路徑資訊
      */
-    protected $data = [];
+    protected static $data = [];
 
     /**
      *
      */
-    public function init($option)
+    public static function init($option)
     {
-        $this->data = [
+        self::$data = [
             'basePath'  => $option['basePath'],
             'baseUrl'   => $option['baseUrl'],
             'host'      => $option['host'],
@@ -29,17 +29,17 @@ class UrlManager
     /**
      *
      */
-    public function getBaseUrl()
+    public static function getBaseUrl()
     {
-        return $this->data['baseUrl'];
+        return self::$data['baseUrl'];
     }
 
     /**
      *  傳回網站基本目錄 uri
      */
-    public function getUrl($path)
+    public static function getUrl($path)
     {
-        return $this->data['baseUrl'] .'/'. $pathFile;
+        return self::$data['baseUrl'] .'/'. $pathFile;
     }
 
     /* ================================================================================
@@ -49,9 +49,9 @@ class UrlManager
     /**
      *
      */
-    public function createUrl($segment, $args=[])
+    public static function createUrl($segment, $args=[])
     {
-        $url = $this->data['baseUrl'] . $segment;
+        $url = self::$data['baseUrl'] . $segment;
         if (!$args) {
             return $url;
         }
@@ -65,9 +65,9 @@ class UrlManager
     /**
      *
      */
-    public function createUri($segment, $args=[])
+    public static function createUri($segment, $args=[])
     {
-        return 'http://' . $this->data['host'] . $this->createUrl($segment, $args);
+        return 'http://' . self::$data['host'] . $this->createUrl($segment, $args);
     }
 
     /* ================================================================================

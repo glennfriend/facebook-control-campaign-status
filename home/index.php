@@ -6,7 +6,8 @@ initialize($basePath, 'home');
 //$controller = new AppModule\Home();
 //$controller->defaultPage();
 
-$app = new Slim\App(getDefaultSlimConfig());
+$container = SlimConfigHelper::getDefaultJsonContainer();
+$app = new Slim\App($container);
 $app->get('/',              'AppModule\Home:defaultPage');
 $app->get('/status/{type}', 'AppModule\Home:status');
 $app->get('/login',         'AppModule\Auth:login');
