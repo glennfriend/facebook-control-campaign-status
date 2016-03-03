@@ -26,12 +26,14 @@ class UrlManager
         ];
     }
 
-    /**
-     *
-     */
     public static function getBaseUrl()
     {
         return self::$data['baseUrl'];
+    }
+
+    public static function getHost()
+    {
+        return self::$data['host'];
     }
 
     /**

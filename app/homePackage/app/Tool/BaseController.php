@@ -75,6 +75,11 @@ class BaseController
             di('view')->setLayout($layout);
         }
 
+        // append view helper
+        di('view')->setRenderBeforeEvent(function() {
+            include (__DIR__ . '/viewHelper.php');
+        });
+
         // render template
         $tmp = explode('\\', get_class($this));
         $className = strtolower($tmp[count($tmp)-1]);

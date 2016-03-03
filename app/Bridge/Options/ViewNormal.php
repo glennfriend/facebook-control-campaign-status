@@ -4,6 +4,7 @@ namespace Bridge\Options;
 class ViewNormal
 {
     protected $data;
+    protected $renderBeforeCallback = null;
 
     /**
      *  init
@@ -28,6 +29,11 @@ class ViewNormal
     /* --------------------------------------------------------------------------------
 
     -------------------------------------------------------------------------------- */
+    public function renderBefore($callback)
+    {
+        $this->renderBeforeCallback = $callback;
+    }
+
     public function render($path, $params)
     {
         if (false !== strstr($path,'..')) {
@@ -48,6 +54,11 @@ class ViewNormal
         if (!file_exists($path)) {
             throw new \Exception('View file "'. htmlspecialchars($path) .'" not found!');
             exit;
+        }
+
+        // event
+        if ($event = $this->get('renderBeforeEvent')) {
+            $event();
         }
 
         // load template

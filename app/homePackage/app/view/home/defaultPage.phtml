@@ -81,7 +81,9 @@
                         }
                         echo "<input type=\"checkbox\" value=\"id[]=" . $campaigns['id'] . "\" name=\"campaigns_selected[]\" {$enable}>";
                         echo $campaigns['name'];
-                        echo " (" . $campaigns['effective_status'] . ")";
+                        echo " (";
+                        echo cc('campaignStatusColor', $campaigns['effective_status'], $campaigns['effective_status']);
+                        echo ")";
                         echo "<br>";
                     }
                     $pageCount++;

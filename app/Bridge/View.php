@@ -25,6 +25,11 @@ class View
         return self::$engine->set('layout', $path);
     }
 
+    public static function setRenderBeforeEvent(callable $callback)
+    {
+        return self::$engine->set('renderBeforeEvent', $callback);
+    }
+
     public static function render($templateName, $params)
     {
         return self::$engine->render($templateName, $params);
