@@ -13,7 +13,12 @@ class Help extends Tool\BaseController
         $routes = SlimManager::getRouter()->getRoutes();
         $urlPrefix = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'];
         $show = [];
-        foreach ($routes as $index => $route) {
+        $index = 0;
+        foreach ($routes as $route) {
+
+            if (!$this->isAllowPattern($route->getPattern())) {
+                continue;
+            }
 
             $show[$index] = [
                 'pattern' => $route->getPattern(),
@@ -26,11 +31,15 @@ class Help extends Tool\BaseController
                 $show[$index]['arguments_tip'] = $description;
             }
 
+            $index++;
         }
 
         toJson($show);
     }
 
+    /**
+     *  對特定 pattern 做說明
+     */
     private function getArgumentsTip($pattern)
     {
         switch ($pattern) {
@@ -39,6 +48,19 @@ class Help extends Tool\BaseController
                 break;
         }
         return null;
+    }
+
+    /**
+     *  不需要顯示的 pattern 可以隱藏
+     */
+    private function isAllowPattern($pattern)
+    {
+        switch ($pattern) {
+            case '/fb-callback':
+            case '/help':
+            return false;
+        }
+        return true;
     }
 
 }
