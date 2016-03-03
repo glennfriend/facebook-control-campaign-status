@@ -26,8 +26,11 @@
         $response = [];
 
         $message = '';
+        $count = 0;
         foreach ($campaign_ids as $actId => $compaignIds) {
             foreach ($compaignIds as $compaignId) {
+                set_time_limit(180);
+
                 $id = substr($compaignId,5);
                 if ('1' === $type) {
                     $message .= '[1] '. $compaignId ."\n";
@@ -37,6 +40,19 @@
                     $message .= '[0] '. $compaignId ."\n";
                     $response[] = $fb->post( '/' . $id . '?status=PAUSED');
                 }
+                else {
+                    echo 'bad ';
+                    continue;
+                }
+
+                $count++;
+                echo $count . ' ';
+                ob_flush();
+                flush();
+                if (0 == $count % 5) {
+                    sleep(120);
+                }
+
             }
         }
 

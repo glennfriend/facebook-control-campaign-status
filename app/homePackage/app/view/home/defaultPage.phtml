@@ -44,7 +44,9 @@
         echo '</select><input type="submit" name="aName" id="adAccountNameHolder"></form>';
     }
     else {
-        echo 'Selected Account #: ' . $adAccountName . ' (' . $adAccountId . ')';
+        echo '<p>';
+        echo    'Selected Account #: ' . $adAccountName . ' (' . $adAccountId . ')';
+        echo '</p>';
 
         // 2. Once account is selected, select a campaign
         if (!isset($campaignName)) {
@@ -55,7 +57,7 @@
                 );
             } catch(Facebook\Exceptions\FacebookResponseException $e) {
                 // When Graph returns an error
-                echo 'Graph returned an error: ' . $e->getMessage();
+                pr('Graph returned an error: ' . $e->getMessage());
                 exit;
             } catch(Facebook\Exceptions\FacebookSDKException $e) {
                 // When validation fails or other local issues
@@ -89,7 +91,6 @@
                     $pageCount++;
                 }
                 while(false);
-                //while ($pageCount < $maxPages && $campaignsEdge = $fb->next($campaignsEdge));
             }
             echo '
                 <input type="submit" name="cName" id="campaign-name-holder" onclick="this.style.visibility=\'hidden\'">
