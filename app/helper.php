@@ -86,8 +86,34 @@ function html($data)
 
 function table(Array $rows, $headers=null)
 {
-    if (null === $headers) {
-        $headers = array_keys($rows[0]);
+    if (isCli()) {
+        if (null === $headers) {
+            $headers = array_keys($rows[0]);
+        }
+        echo ConsoleHelper::table( $headers, $rows );
     }
-    echo ConsoleHelper::table( $headers, $rows );
+    else {
+        if ($rows) {
+            echo '<table style="border:1px solid; border-collapse:collapse; word-break:break-all; word-wrap:break-word; table-layout:fixed;">';
+            echo '<tbody>';
+
+            if ($headers) {
+                echo '<tr>';
+                foreach ($headers as $value) {
+                    echo '<th>'. $value .'</th>';
+                }
+                echo '</tr>';
+            }
+
+            foreach ($rows as $row) {
+                echo '<tr>';
+                foreach ($row as $value) {
+                    echo '<td>'. $value .'</td>';
+                }
+                echo '</tr>';
+            }
+            echo '</tbody>';
+            echo '</table>';
+        }
+    }
 }

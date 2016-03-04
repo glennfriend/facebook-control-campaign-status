@@ -73,7 +73,11 @@ class Help extends BaseController
     {
         echo 'Session: ';
         html( di('session')->getAll() );
-        echo 'Session Expire: '. date('Y-m-d H:i:s', di('session')->get('session_expire'));
+
+        table([
+            ['Current:'        , date('Y-m-d H:i:s')],
+            ['Session_Expire:' , date('Y-m-d H:i:s', di('session')->get('session_expire'))],
+        ]);
     }
 
 }

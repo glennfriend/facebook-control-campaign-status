@@ -15,7 +15,7 @@ class Session
     {
         $opt += [
             'sessionPath'   => '',
-            'expire'        => 3600,    // default 1H = 1 * 60 * 60
+            'expire'        => 7200,    // default 2h = 2 * 60 * 60 = 7200
         ];
 
         if(!$opt['sessionPath']) {
