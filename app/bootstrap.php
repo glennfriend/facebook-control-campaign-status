@@ -6,9 +6,6 @@ function initialize($basePath, $packageName)
     ini_set('html_errors','Off');
     ini_set('display_errors','Off');
 
-    // TODO: move to session bridge
-    session_start();
-
     /**
      *  load helper function
      */
@@ -50,6 +47,10 @@ function initialize($basePath, $packageName)
     //
     // ---- start ----
     //
+
+    Bridge\Session::init([
+        'sessionPath' => conf('app.path') . '/var/session',
+    ]);
 
     if ( phpversion() < '5.5' ) {
         pr("PHP Version need >= 5.5");
