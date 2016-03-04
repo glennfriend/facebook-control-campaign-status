@@ -48,10 +48,6 @@ function initialize($basePath, $packageName)
     // ---- start ----
     //
 
-    Bridge\Session::init([
-        'sessionPath' => conf('app.path') . '/var/session',
-    ]);
-
     if ( phpversion() < '5.5' ) {
         pr("PHP Version need >= 5.5");
         exit;

@@ -66,6 +66,11 @@ class Session
         return $defaultValue;
     }
 
+    public static function getAll()
+    {
+        return $_SESSION;
+    }
+
     /*
         // 支援使用 "." 的方式取得多維陣列下的值 => get('user.name')
         getDot()

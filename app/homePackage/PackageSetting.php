@@ -42,6 +42,12 @@ class PackageSetting extends PackageSettingBase
             ->setProperty('setDb', [new Reference('db')]);  // ??
         */
 
+        // session
+        $di->register('session', 'Bridge\Session');
+        $di->get('session')->init([
+            'sessionPath' => conf('app.path') . '/var/session',
+        ]);
+
         // log & log folder
         $di->register('log', 'Bridge\Log')
             ->addMethodCall('init', ['%app.path%/var']);

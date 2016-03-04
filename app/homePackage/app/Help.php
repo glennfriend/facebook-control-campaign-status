@@ -8,7 +8,10 @@ use SlimManager;
 class Help extends BaseController
 {
 
-    protected function info()
+    // --------------------------------------------------------------------------------
+    //  help
+    // --------------------------------------------------------------------------------
+    protected function help()
     {
         $routes = SlimManager::getRouter()->getRoutes();
         $urlPrefix = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'];
@@ -61,6 +64,16 @@ class Help extends BaseController
             return false;
         }
         return true;
+    }
+
+    // --------------------------------------------------------------------------------
+    //  info
+    // --------------------------------------------------------------------------------
+    protected function info()
+    {
+        echo 'Session: ';
+        html( di('session')->getAll() );
+        echo 'Session Expire: '. date('Y-m-d H:i:s', di('session')->get('session_expire'));
     }
 
 }
