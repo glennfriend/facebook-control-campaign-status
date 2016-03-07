@@ -74,14 +74,29 @@ function html($data)
     }
 
     echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
+
+    // is array, object
     if (is_object($data) || is_array($data)) {
         echo '<pre style="background-color:#def;color:#000;text-align:left; font-size: 8px; font-family: Hack,dina">';
         print_r($data);
         echo '</pre>';
+        return;
     }
-    else {
-        echo $data;
+
+    // is json
+    if (is_string($data)
+        && is_array(json_decode($data, true))
+        && (json_last_error() == JSON_ERROR_NONE)
+    ) {
+        echo '<pre style="background-color:#def;color:#000;text-align:left; font-size: 8px; font-family: Hack,dina">';
+        print_r( json_encode($data, JSON_PRETTY_PRINT) );
+        echo '</pre>';
+        return;
     }
+
+    echo '<pre style="background-color:#def;color:#000;text-align:left; font-size: 8px; font-family: Hack,dina">';
+    echo $data;
+    echo '</pre>';
 }
 
 function table(Array $rows, $headers=null)
