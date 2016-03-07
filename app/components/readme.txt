@@ -44,5 +44,27 @@ Service
 Base
     一個用來被繼承用的 base class
 
-ccHelper
-    view helper only
+
+
+
+------------------------------------------------------------------------
+ARCA架構 的類型
+
+    Presenter
+        - 把日期、金額、名稱之類的呈現（presentation）邏輯抽離出來
+
+    Repository
+        - 把查詢（query）的邏輯，也就是取得entity的各種方式抽離出來
+
+    Form
+        - 把參數驗證（validation）的邏輯（例如字串長度、日期、金額大小）抽離出來
+
+    Service
+        - 把施加在多種entity上 或是 複雜的商業行為抽離出來
+
+    Package
+        - 把其他公司也能使用、概念上獨立於當前專案的程式碼抽離出來
+
+分類法
+    - 照 Domain 分
+    - 照功能分 (目前使用這個方式)
