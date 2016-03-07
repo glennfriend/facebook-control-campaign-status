@@ -9,20 +9,8 @@
         "facebook/php-ads-sdk": "2.5.*",
 
         "slim/slim": "3.*",
-        "symfony/dependency-injection": "3.*",
-        "ydin": "1.*",
-        "bridge": "*"
+        "symfony/dependency-injection": "3.*"
     },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../app/Bridge"
-        },
-        {
-            "type": "path",
-            "url": "../app/Ydin"
-        }
-    ],
     "autoload": {
         "classmap": [
             "../app/components/base",

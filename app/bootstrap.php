@@ -21,6 +21,12 @@ function initialize($basePath, $packageName)
             die('Lose your composer!');
         }
         require_once ($autoload);
+
+        // custom extend load
+        $loader = new Composer\Autoload\ClassLoader();
+        $loader->addPsr4('Bridge\\',    "{$basePath}/app/components/package/Bridge/");
+        $loader->addPsr4('Ydin\\',      "{$basePath}/app/components/package/Ydin/");
+        $loader->register();
     };
     $loadComposer($basePath);
 
