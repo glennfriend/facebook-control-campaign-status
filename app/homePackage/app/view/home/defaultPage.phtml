@@ -65,13 +65,12 @@
                 exit;
             }
 
-            $campaignsEdge = $getCampaignsResponse->getGraphEdge();
-
             // Loop through FB results
             // https://developers.facebook.com/docs/php/Facebook/5.0.0#next
             $maxPages = 99;
 
             echo '<br><br>Please select a campaign: <form id="campaign-form" action="'. $baseUrl .'" method="get">';
+            $campaignsEdge = $getCampaignsResponse->getGraphEdge();
             if (count($campaignsEdge) > 0) {
                 $pageCount = 0;
                 do {
@@ -90,7 +89,7 @@
                     }
                     $pageCount++;
                 }
-                while(false);
+                while ($pageCount < $maxPages && $campaignsEdge = $fb->next($campaignsEdge));
             }
             echo '
                 <input type="submit" name="cName" id="campaign-name-holder" onclick="this.style.visibility=\'hidden\'">
