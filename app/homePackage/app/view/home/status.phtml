@@ -41,8 +41,8 @@
                     $response[] = $fb->post( '/' . $id . '?status=PAUSED');
                 }
                 else {
-                    echo 'bad ';
-                    continue;
+                    echo 'bad type';
+                    exit;
                 }
 
                 $count++;
