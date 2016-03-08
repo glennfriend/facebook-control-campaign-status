@@ -1,6 +1,7 @@
 {
     "require" : {
         "symfony/console": "2.*",
+        "doctrine/migrations": "1.4.*",
         "pwfisher/command-line-php": "dev-master",
         "piwik/ini": "1.0.6",
         "nette/mail": "2.2.*",
