@@ -32,18 +32,11 @@ class Users extends Migration
      */
     public function down()
     {
-        DB::beginTransaction();
-
         Schema::drop('users');
-
-        DB::commit();
     }
 
     /**
-     *  請注意!
      *
-     *      mysql Transaction 無法處理 create table 的 rollback
-     *      
      */
     private function createTable()
     {
