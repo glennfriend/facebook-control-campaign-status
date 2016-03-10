@@ -64,13 +64,13 @@ class Log
     /**
      *  write file
      */
-    public static function write($file, $content)
+    public static function write($name, $content)
     {
-        if (!preg_match('/^[a-z0-9_\-\.]+$/i', $file)) {
+        if (!preg_match('/^[a-z0-9_\-\.]+$/i', $name)) {
             return;
         }
 
-        $filename = self::getPath() .'/'. $file;
+        $filename = self::getPath() .'/'. $name;
         file_put_contents( $filename, $content."\n", FILE_APPEND );
     }
 

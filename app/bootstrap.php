@@ -69,6 +69,13 @@ function initialize($basePath, $packageName)
             $setting->perform();
             break;
 
+        case 'queue':
+            include_once "{$basePath}/app/{$packageName}Package/PackageSetting.php";
+            $setting = new PackageSetting();
+            $setting->set('basePath', $basePath);
+            $setting->perform();
+            break;
+
         case 'nothing':
             // 不做任何事情
             break;

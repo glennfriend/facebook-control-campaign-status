@@ -63,6 +63,9 @@ class PackageSetting extends PackageSettingBase
             'host'      =>  isCli() ? '' :  $_SERVER['HTTP_HOST'],
         ]);
 
+        // queue
+        // $di->register('queue', 'Bridge\Queue');
+
         /*
         // cache
         $di->register('cache', 'Bridge\Cache')
