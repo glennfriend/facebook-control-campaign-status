@@ -19,21 +19,10 @@ class QueueGearmanWorker
      */
     public function __construct( $options=array() )
     {
-/*
-//
-try {
-
-}
-catch (Exception $e) {
-    echo 'Exception Message: ',  $e->getMessage(), "\n";
-}
-
-//
-if (hasError()) {
-    throw new Exception('Error: 0000000000');
-}
-*/
-
+        if (!extension_loaded('gearman')) {
+            throw new \Exception('gearman extension not found!');
+            exit;
+        }
 
         $this->worker = new \GearmanWorker();
         $this->options = $options;
