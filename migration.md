@@ -22,8 +22,9 @@ cp .env.example .env
 vi .env
 ```
 
+##Document
+- [schema](https://laravel.com/docs/5.0/schema)
+- [migrations](https://laravel.tw/docs/5.2/migrations)
+
 ##Note
 - [mysql transaction 無法處理 create table(DDL) 的 rollback](http://dev.mysql.com/doc/refman/5.7/en/cannot-roll-back.html)
-- [laravel schema document](https://laravel.com/docs/5.0/schema)
-- [laravel migrations document](https://laravel.tw/docs/5.2/migrations)
-
