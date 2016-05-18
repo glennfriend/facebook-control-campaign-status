@@ -4,14 +4,18 @@
     require_once $basePath . '/app/bootstrap.php';
     initialize($basePath, 'queue');
 
+    pr('Gearman version: '. gearman_version());
+
     $worker = di('queue')->factoryWorker();
     $worker->addFunction('sleep');
     $worker->run();
 
     function sleep_worker($job)
     {
-        $message = date('y-m-d') . " - ip - ". $job->functionName() ." - ". $job->handle() . " - " . $job->workload();
-        pr($message);
+        echo '1234123412341234';
+        exit;
+        //$message = date('y-m-d') . " - ip - ". $job->functionName() ." - ". $job->handle() . " - " . $job->workload();
+        //pr($message);
         perform( unserialize( $job->workload()) );
     }
 

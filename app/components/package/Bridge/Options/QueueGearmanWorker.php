@@ -42,6 +42,7 @@ class QueueGearmanWorker
             }
             elseif ( 2===count($mac) ) {
                 $this->worker->addServer($mac[0], $mac[1]);
+                // $this->worker->addServers('127.0.0.1:4730');
             }
             else {
                 $this->worker->addServer();
