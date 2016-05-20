@@ -66,4 +66,27 @@ class Home extends BaseController
         ]);
     }
 
+    /**
+     *  讀取某一個 aId
+     *  將讀出來的資料, 狀態為 ACTIVE 的寫入 INI
+     *  以方便星期六、星期一零晨的工作
+     */
+    protected function fbActiveSave()
+    {
+        $token = \ViewHelper::getToken();
+        if (!$token) {
+            throw new \Exception("Token file not found.");
+        }
+
+        $fb = FacebookHelper::getFacebook();
+        $fb->setDefaultAccessToken($token);
+
+        $aId = 'act_112950872167640';
+
+        $this->render(__FUNCTION__, [
+            'fb'  => $fb,
+            'aId' => $aId,
+        ]);
+    }
+
 }

@@ -1,0 +1,63 @@
+<?php
+
+    try {
+        $user = $fb->get('/me?fields=name');
+    }
+    catch(Facebook\Exceptions\FacebookResponseException $e) {
+        // When Graph returns an error
+        pr('Graph returned an error: ' . $e->getMessage(), true);
+        exit;
+    }
+    catch(Facebook\Exceptions\FacebookSDKException $e) {
+        // When validation fails or other local issues
+        pr('Facebook SDK returned an error: ' . $e->getMessage(), true);
+        exit;
+    }
+
+    $userName = $user->getDecodedBody();
+    pr("<p>Logged in as <b>{$userName['name']}</b></p>");
+    pr("<p>aId = {$aId}</p>");
+    pr("<p>storage `status = ACTIVE` items to system</p>");
+
+    //
+    try {
+        $getCampaignsResponse = $fb->get(
+            '/' . $aId . '/campaigns?fields=name,effective_status&effective_status[]=ACTIVE'
+        );
+    } catch(Facebook\Exceptions\FacebookResponseException $e) {
+        // When Graph returns an error
+        pr('Graph returned an error: ' . $e->getMessage());
+        exit;
+    } catch(Facebook\Exceptions\FacebookSDKException $e) {
+        // When validation fails or other local issues
+        pr('Facebook SDK returned an error: ' . $e->getMessage());
+        exit;
+    }
+
+    $maxPages = 99;
+    $saveIds = [];
+    $campaignsEdge = $getCampaignsResponse->getGraphEdge();
+    if (count($campaignsEdge) > 0) {
+        $pageCount = 0;
+        do {
+            foreach ($campaignsEdge as $campaignsArray) {
+                $campaigns = $campaignsArray->asArray();
+                $saveIds[] = 'id[]='. $campaigns['id'] ;
+                echo '<input type="checkbox" checked> ';
+                echo $campaigns['name'];
+                echo "<br>\n";
+            }
+            $pageCount++;
+        }
+        while ($pageCount < $maxPages && $campaignsEdge = $fb->next($campaignsEdge));
+    }
+
+    // 儲存到 INI file 之中
+    $storage = ViewHelper::getIni();
+    $storage[$aId] = $saveIds;
+    ViewHelper::setIni($storage);
+
+
+
+
+

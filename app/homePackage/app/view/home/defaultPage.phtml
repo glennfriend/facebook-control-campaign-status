@@ -37,11 +37,13 @@
 
     // 1. Select Account
     if (!isset($adAccountId)) {
-        echo 'Please select an ad account: <form id="adaccount-form" action="'. $baseUrl .'" method="get"><select id="ad-accounts" name="aId" onchange="getAdAccountName()">';
+        echo 'Please select an ad account: ';
+        echo '<form id="adaccount-form" action="'. $baseUrl .'" method="get"><select id="ad-accounts" name="aId" onchange="getAdAccountName()">';
         foreach($myAdAccounts['data'] as $myAdAccounts) {
             echo '<option value="' . $myAdAccounts['id'] . '">' . $myAdAccounts['name'] . '</option>';
         }
-        echo '</select><input type="submit" name="aName" id="adAccountNameHolder"></form>';
+        echo '</select><input type="submit" name="aName" id="adAccountNameHolder">';
+        echo '</form>';
     }
     else {
         echo '<p>';
