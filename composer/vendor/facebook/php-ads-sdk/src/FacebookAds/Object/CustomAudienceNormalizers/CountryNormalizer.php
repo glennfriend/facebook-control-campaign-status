@@ -22,18 +22,32 @@
  *
  */
 
-namespace FacebookAds\Object\Values;
+namespace FacebookAds\Object\CustomAudienceNormalizers;
 
-use FacebookAds\Enum\AbstractEnum;
+use FacebookAds\Object\CustomAudienceMultiKey;
+use FacebookAds\Object\Fields\CustomAudienceMultikeySchemaFields;
+use FacebookAds\Object\CustomAudienceNormalizers\ValueNormalizerInterface;
 
-/**
- * @method static ConnectionObjectTypes getInstance()
- */
-class ConnectionObjectTypes extends AbstractEnum {
+class CountryNormalizer implements ValueNormalizerInterface {
 
-  const PAGE = 1;
-  const APPLICATION = 2;
-  const EVENT = 3;
-  const PLACE = 6;
-  const DOMAIN = 7;
+  /**
+   * @param string $key
+   * @param string $key_value
+   * @return boolean
+   */
+  public function shouldNormalize($key, $key_value) {
+    return $key === CustomAudienceMultikeySchemaFields::COUNTRY;
+  }
+
+  /**
+   * @param string $key
+   * @param string $key_value
+   * @return string
+   */
+  public function normalize($key, $key_value) {
+    return substr(
+      preg_replace('/[^a-z]/', '', strtolower(trim($key_value))),
+      0,
+      2);
+  }
 }

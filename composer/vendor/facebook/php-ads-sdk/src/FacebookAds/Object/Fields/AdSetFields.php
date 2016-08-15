@@ -46,6 +46,7 @@ class AdSetFields extends AbstractArchivableCrudObjectFields {
   const NAME = 'name';
   const OPTIMIZATION_GOAL = 'optimization_goal';
   const PACING_TYPE = 'pacing_type';
+  const RECOMMENDATIONS = 'recommendations';
   const RF_PREDICTION_ID = 'rf_prediction_id';
   const START_TIME = 'start_time';
   const UPDATED_TIME = 'updated_time';
@@ -53,4 +54,5 @@ class AdSetFields extends AbstractArchivableCrudObjectFields {
   const PROMOTED_OBJECT = 'promoted_object';
   const ADLABELS = 'adlabels';
   const PRODUCT_AD_BEHAVIOR = 'product_ad_behavior';
+  const EXECUTION_OPTIONS = 'execution_options';
 }

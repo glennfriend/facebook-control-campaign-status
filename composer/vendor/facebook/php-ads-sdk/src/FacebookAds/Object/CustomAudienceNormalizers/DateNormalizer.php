@@ -22,18 +22,36 @@
  *
  */
 
-namespace FacebookAds\Object;
+namespace FacebookAds\Object\CustomAudienceNormalizers;
 
-use FacebookAds\Object\Fields\ConnectionObjectFields;
-use FacebookAds\Object\Traits\FieldValidation;
+use FacebookAds\Object\CustomAudienceMultiKey;
+use FacebookAds\Object\Fields\CustomAudienceMultikeySchemaFields;
+use FacebookAds\Object\CustomAudienceNormalizers\ValueNormalizerInterface;
 
-class ConnectionObject extends AbstractObject {
-  use FieldValidation;
+class DateNormalizer implements ValueNormalizerInterface {
 
   /**
-   * @return ConnectionObjectFields
+   * @param string $key
+   * @param string $key_value
+   * @return boolean
    */
-  public static function getFieldsEnum() {
-    return ConnectionObjectFields::getInstance();
+  public function shouldNormalize($key, $key_value) {
+    return in_array($key, array(
+      CustomAudienceMultikeySchemaFields::BIRTH_DATE,
+      CustomAudienceMultikeySchemaFields::BIRTH_MONTH
+    ));
+  }
+
+  /**
+   * @param string $key
+   * @param string $key_value
+   * @return string
+   */
+  public function normalize($key, $key_value) {
+    return str_pad(
+      preg_replace('/[^0-9]/', '', $key_value),
+      2,
+      '0',
+      STR_PAD_LEFT);
   }
 }

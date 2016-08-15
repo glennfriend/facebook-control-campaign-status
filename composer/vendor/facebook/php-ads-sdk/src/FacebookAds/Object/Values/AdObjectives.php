@@ -30,10 +30,12 @@ use FacebookAds\Enum\AbstractEnum;
  * @method static AdObjectives getInstance()
  */
 class AdObjectives extends AbstractEnum {
-
+  const BRAND_AWARENESS = 'BRAND_AWARENESS';
   const CANVAS_APP_ENGAGEMENT = 'CANVAS_APP_ENGAGEMENT';
   const CANVAS_APP_INSTALLS  = 'CANVAS_APP_INSTALLS';
   const EVENT_RESPONSES = 'EVENT_RESPONSES';
+  const EXTERNAL = 'EXTERNAL';
+  const LEAD_GENERATION = 'LEAD_GENERATION';
   const LOCAL_AWARENESS = 'LOCAL_AWARENESS';
   const MOBILE_APP_ENGAGEMENT = 'MOBILE_APP_ENGAGEMENT';
   const MOBILE_APP_INSTALLS = 'MOBILE_APP_INSTALLS';

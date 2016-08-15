@@ -161,17 +161,6 @@ class AdAccount extends AbstractCrudObject {
    * @param array $params
    * @return Cursor
    */
-  public function getConnectionObjects(
-    array $fields = array(), array $params = array()) {
-    return $this->getManyByConnection(
-      ConnectionObject::className(), $fields, $params, 'connectionobjects');
-  }
-
-  /**
-   * @param array $fields
-   * @param array $params
-   * @return Cursor
-   */
   public function getCustomAudiences(
     array $fields = array(), array $params = array()) {
     return $this->getManyByConnection(
@@ -408,5 +397,16 @@ class AdAccount extends AbstractCrudObject {
     array $fields = array(), array $params = array()) {
     return $this->getManyByConnection(
       AdCreative::classname(), $fields, $params, 'adcreativesbylabels');
+  }
+
+  /**
+   * @param array $fields
+   * @param array $params
+   * @return Cursor
+   */
+  public function getCustomConversions (
+    array $fields = array(), array $params = array()) {
+    return $this->getManyByConnection(
+      CustomConversion::className(), $fields, $params);
   }
 }

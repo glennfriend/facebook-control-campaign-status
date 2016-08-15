@@ -22,34 +22,31 @@
  *
  */
 
-namespace FacebookAds\Object\Fields;
+namespace FacebookAds\Object\CustomAudienceNormalizers;
 
-use FacebookAds\Enum\AbstractEnum;
+use FacebookAds\Object\CustomAudienceMultiKey;
+use FacebookAds\Object\Fields\CustomAudienceMultikeySchemaFields;
+use FacebookAds\Object\CustomAudienceNormalizers\ValueNormalizerInterface;
 
-/**
- * @method static ConnectionObjectFields getInstance()
- */
-class ConnectionObjectFields extends AbstractEnum {
+class ZipNormalizer implements ValueNormalizerInterface {
 
-  const APP_INSTALLS_TRACKED = 'app_installs_tracked';
-  const CPA_ACCESS = 'cpa_access';
-  const ICON_URL = 'icon_url';
-  const ID = 'id';
-  const IS_GAME = 'is_game';
-  const LOGO_URL = 'logo_url';
-  const NAME = 'name';
-  const NAME_WITH_LOCATION_DESCRIPTOR = 'name_with_location_descriptor';
-  const NATIVE_APP_STORE_IDS = 'native_app_store_ids';
-  const NATIVE_APP_TARGETING_IDS = 'native_app_targeting_ids';
-  const OBJECT_STORE_URLS = 'object_store_urls';
-  const OG_NAMESPACE = 'og_namespace';
-  const OG_ACTIONS = 'og_actions';
-  const OG_OBJECT = 'og_object';
-  const OG_OBJECTS = 'og_objects';
-  const PICTURE = 'picture';
-  const SUPPORTED_PLATFORMS = 'supported_platforms';
-  const TABS = 'tabs';
-  const TYPE = 'type';
-  const URL = 'url';
-  const WEBSITE = 'website';
+  /**
+   * @param string $key
+   * @param string $key_value
+   * @return boolean
+   */
+  public function shouldNormalize($key, $key_value) {
+    return $key === CustomAudienceMultikeySchemaFields::ZIP;
+  }
+
+  /**
+   * @param string $key
+   * @param string $key_value
+   * @return string
+   */
+  public function normalize($key, $key_value) {
+    return explode(
+      '-',
+      preg_replace('/[ ]/', '', strtolower(trim($key_value))))[0];
+  }
 }
