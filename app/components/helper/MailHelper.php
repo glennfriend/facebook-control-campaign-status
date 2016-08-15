@@ -7,7 +7,7 @@ class MailHelper
 
     public static function send($message)
     {
-        $subject = '[auto] Facebook Compain Status - '. date("Y-m-d H:i:s");
+        $subject = '[auto] Facebook Campaign Status - '. date("Y-m-d (w) H:i");
         self::_send($subject, $message);
     }
 

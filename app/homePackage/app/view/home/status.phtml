@@ -22,14 +22,15 @@
     $storage = conf('app.storage');
     $campaign_ids = parse_ini_file($storage);
 
-    try {
-        $response = [];
 
-        $message = '';
-        $count = 0;
-        foreach ($campaign_ids as $actId => $compaignIds) {
-            foreach ($compaignIds as $compaignId) {
-                set_time_limit(300);
+    $response = [];
+    $message = '';
+    $count = 0;
+    foreach ($campaign_ids as $actId => $compaignIds) {
+        foreach ($compaignIds as $compaignId) {
+
+            set_time_limit(300);
+            try {
 
                 $id = substr($compaignId,5);
                 if ('1' === $type) {
@@ -45,30 +46,32 @@
                     exit;
                 }
 
-                $count++;
-                echo $count . ' ';
-                ob_flush();
-                flush();
-                if (0 == $count % 5) {
-                    sleep(240);
-                }
-
             }
-        }
+            catch(Facebook\Exceptions\FacebookResponseException $e) {
+                $error = 'Graph returned an error: ' . $e->getMessage() . "\n";
+                echo $error;
+                $message .= $error;
+            }
+            catch(Facebook\Exceptions\FacebookSDKException $e) {
+                // When validation fails or other local issues
+                $error = 'Facebook SDK returned an error: ' . $e->getMessage() . "\n";
+                echo $error;
+                $message .= $error;
+            }
 
-        if ($message) {
-            pr('<pre>'.$message.'</pre>');
-            \MailHelper::send($message);
-        }
+            $count++;
+            echo $count . ' ';
+            ob_flush();
+            flush();
+            if (0 == $count % 5) {
+                sleep(240);
+            }
 
+        }
     }
-    catch(Facebook\Exceptions\FacebookResponseException $e) {
-        echo 'Graph returned an error: ' . $e->getMessage();
-        exit;
-    }
-    catch(Facebook\Exceptions\FacebookSDKException $e) {
-        // When validation fails or other local issues
-        echo 'Facebook SDK returned an error: ' . $e->getMessage();
-        exit;
+
+    if ($message) {
+        pr('<pre>'.$message.'</pre>');
+        \MailHelper::send($message);
     }
 
