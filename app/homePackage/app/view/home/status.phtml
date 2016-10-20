@@ -64,13 +64,14 @@
             ob_flush();
             flush();
             if (0 == $count % 5) {
+                // break;
                 sleep(240);
             }
 
         }
     }
 
-    print_r($message);
+    // print_r($message);
 
     if ($message) {
         pr('<pre>'.$message.'</pre>');
