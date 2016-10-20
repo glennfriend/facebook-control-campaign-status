@@ -70,8 +70,11 @@
         }
     }
 
+    print_r($message);
+
     if ($message) {
         pr('<pre>'.$message.'</pre>');
         \MailHelper::send($message);
     }
+
 
