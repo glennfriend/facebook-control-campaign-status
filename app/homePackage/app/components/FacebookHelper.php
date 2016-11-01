@@ -10,7 +10,7 @@ class FacebookHelper
             $fb = new Facebook([
                'app_id'     => conf('facebook.app.id'),
                'app_secret' => conf('facebook.app.secret'),
-               'default_graph_version' => 'v2.6',
+               'default_graph_version' => 'v2.7',
             ]);
         }
         catch(\Exception $e) {
